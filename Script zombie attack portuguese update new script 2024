@@ -1,0 +1,460 @@
+local PabloLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/BatuKvi123/PabloLibV3/main/PabloLibV3"))()
+local window = PabloLib:Create(
+"Projeto LKA I Zombie Attack 🇧🇷", -- Nome Menu
+"Enabled", --  Poder Mover Menu
+"p" -- PC Executador Fechar Web-Site
+)
+
+---Menus---
+
+local tab1 = window:CreateTab("Principal - Farm")
+local tab2 = window:CreateTab("Jogador / Combate")
+local tab3 = window:CreateTab("Outros")
+local tab4 = window:CreateTab("Creditos Dev")
+local tab5 = window:CreateTab("Avisos !")
+local tab6 = window:CreateTab("Menu Hub Outros Jogos")
+local tab7 = window:CreateTab("Auto Farm Ajuda")
+local tab8 = window:CreateTab("Auto Farm Click")
+local tab9 = window:CreateTab("Fechar Menu")
+
+---Botãos---
+
+tab1:CreateButton("Auto Farm (Arma)", function()
+print(value)
+local groundDistance = 18
+local Player = game:GetService("Players").LocalPlayer
+local function getNearest()
+local nearest, dist = nil, 99999
+for _,v in pairs(game.Workspace.BossFolder:GetChildren()) do
+if(v:FindFirstChild("Head")~=nil)then
+local m =(Player.Character.Head.Position-v.Head.Position).magnitude
+if(m<dist)then
+dist = m
+nearest = v
+end
+end
+end
+for _,v in pairs(game.Workspace.enemies:GetChildren()) do
+if(v:FindFirstChild("Head")~=nil)then
+local m =(Player.Character.Head.Position-v.Head.Position).magnitude
+if(m<dist)then
+dist = m
+nearest = v
+end
+end
+end
+return nearest
+end
+_G.farm2 = true
+Player.Chatted:Connect(function(m)
+if(m==";autofarm false")then
+_G.farm2 = false
+elseif(m==";autofarm true")then
+_G.farm2 = true
+end
+end)
+_G.globalTarget = nil
+game:GetService("RunService").RenderStepped:Connect(function()
+if(_G.farm2==true)then
+local target = getNearest()
+if(target~=nil)then
+game:GetService("Workspace").CurrentCamera.CFrame = CFrame.new(game:GetService("Workspace").CurrentCamera.CFrame.p, target.Head.Position)
+Player.Character.HumanoidRootPart.CFrame = (target.HumanoidRootPart.CFrame * CFrame.new(0, groundDistance, 9))
+_G.globalTarget = target
+end
+end
+end)
+spawn(function()
+while wait() do
+game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+game.Players.LocalPlayer.Character.Torso.Velocity = Vector3.new(0,0,0)
+end
+end)
+while wait() do
+if(_G.farm2==true and _G.globalTarget~=nil and _G.globalTarget:FindFirstChild("Head") and Player.Character:FindFirstChildOfClass("Tool"))then
+local target = _G.globalTarget
+game.ReplicatedStorage.Gun:FireServer({["Normal"] = Vector3.new(0, 0, 0), ["Direction"] = target.Head.Position, ["Name"] = Player.Character:FindFirstChildOfClass("Tool").Name, ["Hit"] = target.Head, ["Origin"] = target.Head.Position, ["Pos"] = target.Head.Position,})
+wait()
+end
+end
+end)
+
+tab1:CreateButton("Auto Pegar Arma (Teste)", function()
+  print(value)
+loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Auto%20Equip%20Tool'))()
+end)
+
+tab2:CreateButton("HitBox", function()
+  print(value)
+_G.HeadSize = 14
+local enemies = workspace.enemies
+while wait() do
+  for _,v in next, enemies:GetChildren() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+       v.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+     v.HumanoidRootPart.Material = "Neon"
+       v.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+       v.HumanoidRootPart.Transparency = 0.4
+       v.HumanoidRootPart.CanCollide = false
+end)
+end
+  end
+end
+end)
+
+tab2:CreateTextbox("Mudar Sua Volocidade", function(a)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = a
+print(a)
+end)
+
+tab2:CreateTextbox("Mudar Seu Pulo", function(a)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = a
+print(a)
+end)
+
+tab2:CreateButton("Pulo Infinito", function()
+  print(value)
+_G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--Notifies readiness
+	game.StarterGui:SetCore("SendNotification", {Title="WeAreDevs.net"; Text="The WeAreDevs Infinite Jump exploit is ready!"; Duration=5;})
+
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end
+end)
+
+tab8:CreateButton("Auto Farm (click)", function()
+print(value)
+local groundDistance = 18
+local Player = game:GetService("Players").LocalPlayer
+local function getNearest()
+local nearest, dist = nil, 99999
+for _,v in pairs(game.Workspace.BossFolder:GetChildren()) do
+if(v:FindFirstChild("Head")~=nil)then
+local m =(Player.Character.Head.Position-v.Head.Position).magnitude
+if(m<dist)then
+dist = m
+nearest = v
+end
+end
+end
+for _,v in pairs(game.Workspace.enemies:GetChildren()) do
+if(v:FindFirstChild("Head")~=nil)then
+local m =(Player.Character.Head.Position-v.Head.Position).magnitude
+if(m<dist)then
+dist = m
+nearest = v
+end
+end
+end
+return nearest
+end
+_G.farm2 = true
+Player.Chatted:Connect(function(m)
+if(m==";autofarm false")then
+_G.farm2 = false
+elseif(m==";autofarm true")then
+_G.farm2 = true
+end
+end)
+_G.globalTarget = nil
+game:GetService("RunService").RenderStepped:Connect(function()
+if(_G.farm2==true)then
+local target = getNearest()
+if(target~=nil)then
+game:GetService("Workspace").CurrentCamera.CFrame = CFrame.new(game:GetService("Workspace").CurrentCamera.CFrame.p, target.Head.Position)
+Player.Character.HumanoidRootPart.CFrame = (target.HumanoidRootPart.CFrame * CFrame.new(0, groundDistance, 9))
+_G.globalTarget = target
+end
+end
+end)
+spawn(function()
+while wait() do
+game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,0,0)
+game.Players.LocalPlayer.Character.Torso.Velocity = Vector3.new(0,0,0)
+end
+end)
+while wait() do
+if(_G.farm2==true and _G.globalTarget~=nil and _G.globalTarget:FindFirstChild("Head") and Player.Character:FindFirstChildOfClass("Tool"))then
+local target = _G.globalTarget
+game.ReplicatedStorage.Gun:FireServer({["Normal"] = Vector3.new(0, 0, 0), ["Direction"] = target.Head.Position, ["Name"] = Player.Character:FindFirstChildOfClass("Tool").Name, ["Hit"] = target.Head, ["Origin"] = target.Head.Position, ["Pos"] = target.Head.Position,})
+wait()
+end
+end
+end)
+
+tab8:CreateButton("HitBox (click)", function()
+  print(value)
+_G.HeadSize = 14
+local enemies = workspace.enemies
+while wait() do
+  for _,v in next, enemies:GetChildren() do
+if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+pcall(function()
+       v.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+     v.HumanoidRootPart.Material = "Neon"
+       v.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+       v.HumanoidRootPart.Transparency = 0.4
+       v.HumanoidRootPart.CanCollide = false
+end)
+end
+  end
+end
+end)
+
+tab3:CreateButton("Anti kick", function()
+print(value)
+wait(0.5)local ba=Instance.new("ScreenGui")
+local ca=Instance.new("TextLabel")local da=Instance.new("Frame")
+local _b=Instance.new("TextLabel")local ab=Instance.new("TextLabel")ba.Parent=game.CoreGui
+ba.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;ca.Parent=ba;ca.Active=true
+ca.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)ca.Draggable=true
+ca.Position=UDim2.new(0.698610067,0,0.098096624,0)ca.Size=UDim2.new(0,304,0,52)
+ca.Font=Enum.Font.SourceSansSemibold;ca.Text="Anti Afk Kick Script"ca.TextColor3=Color3.new(0,1,1)
+ca.TextSize=22;da.Parent=ca
+da.BackgroundColor3=Color3.new(0.196078,0.196078,0.196078)da.Position=UDim2.new(0,0,1.0192306,0)
+da.Size=UDim2.new(0,304,0,107)_b.Parent=da
+_b.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)_b.Position=UDim2.new(0,0,0.800455689,0)
+_b.Size=UDim2.new(0,304,0,21)_b.Font=Enum.Font.Arial;_b.Text="Feito Por dqtixz"
+_b.TextColor3=Color3.new(1,1,1)_b.TextSize=20;ab.Parent=da
+ab.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)ab.Position=UDim2.new(0,0,0.158377379,0)
+ab.Size=UDim2.new(0,304,0,44)ab.Font=Enum.Font.ArialBold;ab.Text="Status: Ativado"
+ab.TextColor3=Color3.new(1,1,1)ab.TextSize=20;local bb=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+bb:CaptureController()bb:ClickButton2(Vector2.new())
+ab.Text="Error Roblox Tentou Kick Você !?"wait(2)ab.Text="Script Re-Ativo"end)
+end)
+
+tab3:CreateButton("Noclip", function()
+print(value)
+local Workspace = game:GetService("Workspace")
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local Noclip = Instance.new("ScreenGui")
+local BG = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Toggle = Instance.new("TextButton")
+local StatusPF = Instance.new("TextLabel")
+local Status = Instance.new("TextLabel")
+local Credit = Instance.new("TextLabel")
+local Plr = Players.LocalPlayer
+local Clipon = false
+ 
+Noclip.Name = "Noclip"
+Noclip.Parent = game.CoreGui
+ 
+BG.Name = "BG"
+BG.Parent = Noclip
+BG.BackgroundColor3 = Color3.new(0.0980392, 0.0980392, 0.0980392)
+BG.BorderColor3 = Color3.new(0.0588235, 0.0588235, 0.0588235)
+BG.BorderSizePixel = 2
+BG.Position = UDim2.new(0.149479166, 0, 0.82087779, 0)
+BG.Size = UDim2.new(0, 210, 0, 127)
+BG.Active = true
+BG.Draggable = true
+ 
+Title.Name = "Title"
+Title.Parent = BG
+Title.BackgroundColor3 = Color3.new(0.266667, 0.00392157, 0.627451)
+Title.BorderColor3 = Color3.new(0.180392, 0, 0.431373)
+Title.BorderSizePixel = 2
+Title.Size = UDim2.new(0, 210, 0, 33)
+Title.Font = Enum.Font.Highway
+Title.Text = "Noclip"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.FontSize = Enum.FontSize.Size32
+Title.TextSize = 30
+Title.TextStrokeColor3 = Color3.new(0.180392, 0, 0.431373)
+Title.TextStrokeTransparency = 0
+ 
+Toggle.Parent = BG
+Toggle.BackgroundColor3 = Color3.new(0.266667, 0.00392157, 0.627451)
+Toggle.BorderColor3 = Color3.new(0.180392, 0, 0.431373)
+Toggle.BorderSizePixel = 2
+Toggle.Position = UDim2.new(0.152380958, 0, 0.374192119, 0)
+Toggle.Size = UDim2.new(0, 146, 0, 36)
+Toggle.Font = Enum.Font.Highway
+Toggle.FontSize = Enum.FontSize.Size28
+Toggle.Text = "Botão"
+Toggle.TextColor3 = Color3.new(1, 1, 1)
+Toggle.TextSize = 25
+Toggle.TextStrokeColor3 = Color3.new(0.180392, 0, 0.431373)
+Toggle.TextStrokeTransparency = 0
+ 
+StatusPF.Name = "StatusPF"
+StatusPF.Parent = BG
+StatusPF.BackgroundColor3 = Color3.new(1, 1, 1)
+StatusPF.BackgroundTransparency = 1
+StatusPF.Position = UDim2.new(0.314285725, 0, 0.708661377, 0)
+StatusPF.Size = UDim2.new(0, 56, 0, 20)
+StatusPF.Font = Enum.Font.Highway
+StatusPF.FontSize = Enum.FontSize.Size24
+StatusPF.Text = "Status:"
+StatusPF.TextColor3 = Color3.new(1, 1, 1)
+StatusPF.TextSize = 20
+StatusPF.TextStrokeColor3 = Color3.new(0.333333, 0.333333, 0.333333)
+StatusPF.TextStrokeTransparency = 0
+StatusPF.TextWrapped = true
+ 
+Status.Name = "Status"
+Status.Parent = BG
+Status.BackgroundColor3 = Color3.new(1, 1, 1)
+Status.BackgroundTransparency = 1
+Status.Position = UDim2.new(0.580952346, 0, 0.708661377, 0)
+Status.Size = UDim2.new(0, 56, 0, 20)
+Status.Font = Enum.Font.Highway
+Status.FontSize = Enum.FontSize.Size14
+Status.Text = "Desativado"
+Status.TextColor3 = Color3.new(0.666667, 0, 0)
+Status.TextScaled = true
+Status.TextSize = 14
+Status.TextStrokeColor3 = Color3.new(0.180392, 0, 0.431373)
+Status.TextWrapped = true
+Status.TextXAlignment = Enum.TextXAlignment.Left
+ 
+Credit.Name = "Creditos"
+Credit.Parent = BG
+Credit.BackgroundColor3 = Color3.new(1, 1, 1)
+Credit.BackgroundTransparency = 1
+Credit.Position = UDim2.new(0.195238099, 0, 0.866141737, 0)
+Credit.Size = UDim2.new(0, 128, 0, 17)
+Credit.Font = Enum.Font.SourceSans
+Credit.FontSize = Enum.FontSize.Size18
+Credit.Text = "Feito Por dqtixz"
+Credit.TextColor3 = Color3.new(1, 1, 1)
+Credit.TextSize = 16
+Credit.TextStrokeColor3 = Color3.new(0.196078, 0.196078, 0.196078)
+Credit.TextStrokeTransparency = 0
+Credit.TextWrapped = true
+ 
+Toggle.MouseButton1Click:connect(function()
+    if Status.Text == "Desativado" then
+        Clipon = true
+        Status.Text = "Ativado"
+        Status.TextColor3 = Color3.new(0,185,0)
+        Stepped = game:GetService("RunService").Stepped:Connect(function()
+            if not Clipon == false then
+                for a, b in pairs(Workspace:GetChildren()) do
+                if b.Name == Plr.Name then
+                for i, v in pairs(Workspace[Plr.Name]:GetChildren()) do
+                if v:IsA("BasePart") then
+                v.CanCollide = false
+                end end end end
+            else
+                Stepped:Disconnect()
+            end
+        end)
+    elseif Status.Text == "Ativado" then
+        Clipon = false
+        Status.Text = "Desativado"
+        Status.TextColor3 = Color3.new(170,0,0)
+    end
+end)
+end)
+
+tab6:CreateButton("Noclip", function()
+print(value)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/dqtixz/script-Murderers-VS-Sheriffs-Hub/main/Script%20Murderers%20VS%20Sheriffs%20Hub%20By%20Dqtixz"))();
+end)
+
+tab6:CreateButton("Reentrar", function()
+print(value)
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+ 
+local Rejoin = coroutine.create(function()
+    local Success, ErrorMessage = pcall(function()
+        TeleportService:Teleport(game.PlaceId, LocalPlayer)
+    end)
+ 
+    if ErrorMessage and not Success then
+        warn(ErrorMessage)
+    end
+end)
+ 
+coroutine.resume(Rejoin)
+end)
+
+---Aviso / Ajuda---
+
+tab5:CreateWarning("Totorial De Como Evitar Banimento.")
+tab5:CreateWarning("1 - Não Fique Falando No Chat.")
+tab5:CreateWarning("2 - Va Um Server Gringo Se Quiser.")
+tab5:CreateWarning("3 - Não Responda Nenhum Jogador.")
+tab5:CreateWarning("4 - Não Spam Exem:EZ Ez Pode dar banimento.")
+tab5:CreateWarning("5 - Alguem chama Você De Hack Mude De Server.")
+tab5:CreateWarning("6 - Server Com Poucas Pessoas.")
+
+--- Creditos ---
+
+tab4:CreateWarning("1 - Projeto LKA - Scripts Hub Menu Brasil")
+tab4:CreateWarning("2 - Zombie Attack Script - 24/02/2024")
+tab4:CreateWarning("3 - Criado Por dqtixz")
+tab4:CreateWarning("4 - Ultima Atulização - 24/02/2024")
+
+--- Auto Farm Aviso --- 
+
+tab1:CreateWarning("1 - Ultilize Com Cuidado")
+tab1:CreateWarning("2 - Veja (Auto Farm Ajuda)")
+tab1:CreateWarning("3 - Ultilize A Arma Para Farm")
+tab1:CreateWarning("4 - Se Morrer Auto Desequipa Arma")
+tab1:CreateWarning("5 - Está em teste auto equipar arma")
+tab1:CreateWarning("6 - Apenas Digitar Nome Da Arma Igual (Ingles)")
+
+--- Jogador / Combate --- 
+
+tab2:CreateWarning("1 - Atenção !")
+tab2:CreateWarning("2 - Veja (Avisos)")
+tab2:CreateWarning("3 - Para Evitar Banimento !")
+
+--- Menu Hub Outros Jogos ---
+
+tab6:CreateWarning("1 - Em Breve Novas Updates")
+tab6:CreateWarning("2 - Siga dqtixz No Roblox")
+
+--- Auto Farm Ajuda ---
+
+tab7:CreateWarning("1 - Ultilize Em Servers Com Poucas Pessoas")
+tab7:CreateWarning("2 - Ultilize Em Server Vip")
+tab7:CreateWarning("3 - Entre Em Um Servidor Que Niguem Fala")
+tab7:CreateWarning("4 - Entre Servidor De Outro Pais")
+tab7:CreateWarning("5 - Auto Farm Click Abaixo")
+tab7:CreateWarning("6 - Selecione Auto Farm Click")
+tab7:CreateWarning("7 - Deixa Um Auto Click Com HitBox")
+tab7:CreateWarning("8 - Isso Aumentara Sua Volocidade De Farm")
+
+--- Auto Farm Click
+
+tab8:CreateWarning("1- Veja Auto Farm Ajuda")
+tab8:CreateWarning("2 - Para Sua Ajuda")
+
+--- Fechar Menu ---
+
+tab9:CreateButton("Fechar Menu", function()
+  print(value)
+PabloLib:Close()
+end)
+
+--[[
+tab1:CreateButton("Auto Pegar Arma (Teste)", function()
+  print(value)
+loadstring(game:HttpGet('https://raw.githubusercontent.com/GhostPlayer352/Test4/main/Auto%20Equip%20Tool'))()
+end)]]
